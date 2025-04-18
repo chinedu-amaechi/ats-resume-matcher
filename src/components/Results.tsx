@@ -1,6 +1,8 @@
 // src/components/Results.tsx
 import React, { useState } from "react";
 import SkillsChart from "./SkillsChart";
+import SkillsGrid from "./SkillsGrid";
+import SkillDevelopment from "./SkillDevelopment";
 
 interface AnalysisResults {
   matchPercentage: number;
@@ -412,58 +414,38 @@ export default function Results({ analysis }: ResultsProps) {
                             </p>
 
                             {skillCategories.technical.length > 0 && (
-                              <div className="mb-4">
+                              <div className="mb-6">
                                 <h5 className="text-sm font-medium text-neutral-700 mb-2">
                                   Technical Skills
                                 </h5>
-                                <div className="flex flex-wrap gap-2">
-                                  {skillCategories.technical.map(
-                                    (skill, idx) => (
-                                      <div
-                                        key={idx}
-                                        className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
-                                      >
-                                        {skill}
-                                      </div>
-                                    )
-                                  )}
-                                </div>
+                                <SkillsGrid
+                                  skills={skillCategories.technical}
+                                  colorClass="bg-blue-100 text-blue-800"
+                                />
                               </div>
                             )}
 
                             {skillCategories.domain.length > 0 && (
-                              <div className="mb-4">
+                              <div className="mb-6">
                                 <h5 className="text-sm font-medium text-neutral-700 mb-2">
                                   Domain Skills
                                 </h5>
-                                <div className="flex flex-wrap gap-2">
-                                  {skillCategories.domain.map((skill, idx) => (
-                                    <div
-                                      key={idx}
-                                      className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium"
-                                    >
-                                      {skill}
-                                    </div>
-                                  ))}
-                                </div>
+                                <SkillsGrid
+                                  skills={skillCategories.domain}
+                                  colorClass="bg-purple-100 text-purple-800"
+                                />
                               </div>
                             )}
 
                             {skillCategories.soft.length > 0 && (
-                              <div className="mb-4">
+                              <div className="mb-6">
                                 <h5 className="text-sm font-medium text-neutral-700 mb-2">
                                   Soft Skills
                                 </h5>
-                                <div className="flex flex-wrap gap-2">
-                                  {skillCategories.soft.map((skill, idx) => (
-                                    <div
-                                      key={idx}
-                                      className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium"
-                                    >
-                                      {skill}
-                                    </div>
-                                  ))}
-                                </div>
+                                <SkillsGrid
+                                  skills={skillCategories.soft}
+                                  colorClass="bg-green-100 text-green-800"
+                                />
                               </div>
                             )}
                           </>
