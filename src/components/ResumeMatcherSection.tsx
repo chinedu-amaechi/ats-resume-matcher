@@ -58,16 +58,16 @@ export default function ResumeMatcherSection() {
   };
 
   return (
-    <section id="resume-matcher" className="py-16">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-slate-900">Resume Matcher</h2>
-          <p className="text-slate-600 mt-2">
+    <section id="resume-matcher" className="py-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-slate-900">Resume Matcher</h2>
+          <p className="text-slate-600 mt-3 text-lg">
             Paste your resume and job description to analyze the match
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10 overflow-hidden">
           <form onSubmit={analyzeResume} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -92,7 +92,7 @@ export default function ResumeMatcherSection() {
                     className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors"
                     onClick={() =>
                       setJobDesc(
-                        "Software Engineer with 3+ years of experience in React and Node.js..."
+                        "Software Engineer with 3+ years of experience in React, Node.js, and TypeScript. The ideal candidate will have a strong foundation in front-end development, responsive design and be comfortable with modern JavaScript frameworks. Responsibilities include developing user interface components, implementing responsive designs, and optimizing application performance. Required skills: JavaScript, CSS, HTML5, Git, RESTful APIs. Preferred skills: Python, Docker, AWS, MongoDB, Agile, Scrum, CI/CD."
                       )
                     }
                   >
@@ -109,7 +109,7 @@ export default function ResumeMatcherSection() {
             <div className="text-center">
               <button
                 type="submit"
-                className="w-full sm:w-auto px-8 py-3 bg-primary text-white font-medium rounded-lg shadow-md hover:bg-primary-dark hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full sm:w-auto px-10 py-4 bg-primary text-white text-lg font-medium rounded-lg shadow-md hover:bg-primary-dark hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                 disabled={loading}
               >
                 {loading ? (

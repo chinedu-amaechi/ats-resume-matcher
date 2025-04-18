@@ -13,15 +13,82 @@ interface ResultsProps {
 }
 
 export default function Results({ analysis }: ResultsProps) {
-  const [activeTab, setActiveTab] = useState<"overview" | "missing">(
-    "overview"
-  );
+  const [activeTab, setActiveTab] = useState<
+    "overview" | "missing" | "skillgap"
+  >("overview");
 
   // Calculate circular progress
   const radius = 70;
   const circumference = 2 * Math.PI * radius;
   const dashoffset =
     circumference - (analysis.matchPercentage / 100) * circumference;
+
+  // Extract potential skills from missing keywords
+  const skillKeywords = [
+    "javascript",
+    "typescript",
+    "react",
+    "angular",
+    "vue",
+    "node",
+    "express",
+    "python",
+    "java",
+    "c#",
+    "php",
+    "ruby",
+    "go",
+    "rust",
+    "swift",
+    "kotlin",
+    "objective-c",
+    "html",
+    "css",
+    "sass",
+    "less",
+    "bootstrap",
+    "tailwind",
+    "jquery",
+    "sql",
+    "mysql",
+    "postgresql",
+    "mongodb",
+    "firebase",
+    "graphql",
+    "rest",
+    "api",
+    "aws",
+    "azure",
+    "gcp",
+    "docker",
+    "kubernetes",
+    "jenkins",
+    "gitlab",
+    "github",
+    "bitbucket",
+    "jira",
+    "agile",
+    "scrum",
+    "kanban",
+    "ci/cd",
+    "testing",
+    "jest",
+    "mocha",
+    "selenium",
+    "cypress",
+    "webpack",
+    "babel",
+    "npm",
+    "yarn",
+    "redux",
+    "vuex",
+    "mobx",
+  ];
+
+  // Identify missing skills from missing keywords
+  const missingSkills = analysis.missingKeywords.filter((keyword) =>
+    skillKeywords.includes(keyword.toLowerCase())
+  );
 
   // Determine match level based on percentage
   const getMatchLevel = (score: number) => {
@@ -146,6 +213,16 @@ export default function Results({ analysis }: ResultsProps) {
                     >
                       Missing Keywords
                     </button>
+                    <button
+                      className={`py-3 px-6 border-b-2 ${
+                        activeTab === "skillgap"
+                          ? "border-primary text-primary"
+                          : "border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300"
+                      } font-medium text-sm`}
+                      onClick={() => setActiveTab("skillgap")}
+                    >
+                      Skill Gap
+                    </button>
                   </nav>
                 </div>
 
@@ -216,7 +293,7 @@ export default function Results({ analysis }: ResultsProps) {
                         </div>
                       </div>
                     </div>
-                  ) : (
+                  ) : activeTab === "missing" ? (
                     <div className="space-y-6">
                       <div>
                         <h4 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
@@ -294,6 +371,142 @@ export default function Results({ analysis }: ResultsProps) {
                               Only add keywords that honestly represent your
                               skills and experience. Never add keywords that
                               aren't true just to improve your score.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-6">
+                      <div>
+                        <h4 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
+                          Technical Skills Gap Analysis
+                        </h4>
+
+                        {missingSkills.length > 0 ? (
+                          <>
+                            <p className="text-neutral-700 mb-4">
+                              We've identified the following technical skills
+                              that appear in the job description but are not
+                              detected in your resume:
+                            </p>
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {missingSkills.map((skill, idx) => (
+                                <div
+                                  key={idx}
+                                  className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
+                                >
+                                  {skill}
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        ) : (
+                          <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <div className="flex">
+                              <div className="flex-shrink-0">
+                                <svg
+                                  className="h-5 w-5 text-green-600"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M5 13l4 4L19 7"
+                                  />
+                                </svg>
+                              </div>
+                              <div className="ml-3">
+                                <p className="text-green-700">
+                                  No significant skill gaps detected! Your
+                                  resume appears to cover all the technical
+                                  skills mentioned in the job description.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {missingSkills.length > 0 && (
+                        <div>
+                          <h4 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
+                            Skill Development Recommendations
+                          </h4>
+                          <p className="text-neutral-700 mb-2">
+                            Consider developing these skills to improve your
+                            match for similar positions:
+                          </p>
+                          <ul className="list-disc pl-5 text-neutral-700 space-y-3">
+                            {missingSkills.slice(0, 3).map((skill, idx) => (
+                              <li key={idx}>
+                                <span className="font-medium">
+                                  {skill.charAt(0).toUpperCase() +
+                                    skill.slice(1)}
+                                </span>
+                                :
+                                {skill.toLowerCase() === "react" &&
+                                  " Learn React fundamentals through the official documentation and build small projects to demonstrate your skills."}
+                                {skill.toLowerCase() === "node" &&
+                                  " Practice building backend applications with Node.js and understand how to create RESTful APIs."}
+                                {skill.toLowerCase() === "typescript" &&
+                                  " Add TypeScript to your JavaScript projects to show your understanding of type systems and interfaces."}
+                                {skill.toLowerCase() === "python" &&
+                                  " Develop Python applications focusing on data processing or automation to showcase your capabilities."}
+                                {skill.toLowerCase() === "docker" &&
+                                  " Learn containerization concepts and demonstrate your ability to deploy applications using Docker."}
+                                {skill.toLowerCase() === "aws" &&
+                                  " Familiarize yourself with key AWS services like S3, EC2, and Lambda through the free tier offerings."}
+                                {skill.toLowerCase() === "mongodb" &&
+                                  " Build projects that use MongoDB as a database to store and retrieve data efficiently."}
+                                {skill.toLowerCase() === "agile" &&
+                                  " Participate in or lead projects using Agile methodologies to demonstrate your process knowledge."}
+                                {![
+                                  "react",
+                                  "node",
+                                  "typescript",
+                                  "python",
+                                  "docker",
+                                  "aws",
+                                  "mongodb",
+                                  "agile",
+                                ].includes(skill.toLowerCase()) &&
+                                  " Consider courses, tutorials or small projects to develop this skill and add it to your resume."}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      <div className="p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+                        <div className="flex">
+                          <div className="flex-shrink-0">
+                            <svg
+                              className="h-5 w-5 text-indigo-700"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                              />
+                            </svg>
+                          </div>
+                          <div className="ml-3">
+                            <h4 className="text-sm font-medium text-indigo-800">
+                              Career Insight
+                            </h4>
+                            <p className="mt-1 text-sm text-indigo-700">
+                              Focus on developing skills that appear frequently
+                              in job postings for your target role. Practical
+                              projects demonstrating these skills can be more
+                              valuable than certifications alone.
                             </p>
                           </div>
                         </div>
