@@ -6,6 +6,13 @@ interface AnalysisResults {
   totalKeywords: number;
   matchedKeywords: number;
   missingKeywords: string[];
+  matchedSkills?: string[];
+  missingSkills?: string[];
+  skillCategories?: {
+    technical: string[];
+    soft: string[];
+    domain: string[];
+  };
 }
 
 interface ResultsProps {
@@ -23,72 +30,79 @@ export default function Results({ analysis }: ResultsProps) {
   const dashoffset =
     circumference - (analysis.matchPercentage / 100) * circumference;
 
-  // Extract potential skills from missing keywords
-  const skillKeywords = [
-    "javascript",
-    "typescript",
-    "react",
-    "angular",
-    "vue",
-    "node",
-    "express",
-    "python",
-    "java",
-    "c#",
-    "php",
-    "ruby",
-    "go",
-    "rust",
-    "swift",
-    "kotlin",
-    "objective-c",
-    "html",
-    "css",
-    "sass",
-    "less",
-    "bootstrap",
-    "tailwind",
-    "jquery",
-    "sql",
-    "mysql",
-    "postgresql",
-    "mongodb",
-    "firebase",
-    "graphql",
-    "rest",
-    "api",
-    "aws",
-    "azure",
-    "gcp",
-    "docker",
-    "kubernetes",
-    "jenkins",
-    "gitlab",
-    "github",
-    "bitbucket",
-    "jira",
-    "agile",
-    "scrum",
-    "kanban",
-    "ci/cd",
-    "testing",
-    "jest",
-    "mocha",
-    "selenium",
-    "cypress",
-    "webpack",
-    "babel",
-    "npm",
-    "yarn",
-    "redux",
-    "vuex",
-    "mobx",
-  ];
+  // Use the skills data from the analysis if available, otherwise fallback to local detection
+  const missingSkills =
+    analysis.missingSkills ||
+    analysis.missingKeywords.filter((keyword) => {
+      const lowerKeyword = keyword.toLowerCase();
+      return [
+        "javascript",
+        "typescript",
+        "react",
+        "angular",
+        "vue",
+        "node",
+        "express",
+        "python",
+        "java",
+        "c#",
+        "php",
+        "ruby",
+        "go",
+        "rust",
+        "swift",
+        "kotlin",
+        "objective-c",
+        "html",
+        "css",
+        "sass",
+        "less",
+        "bootstrap",
+        "tailwind",
+        "jquery",
+        "sql",
+        "mysql",
+        "postgresql",
+        "mongodb",
+        "firebase",
+        "graphql",
+        "rest",
+        "api",
+        "aws",
+        "azure",
+        "gcp",
+        "docker",
+        "kubernetes",
+        "jenkins",
+        "gitlab",
+        "github",
+        "bitbucket",
+        "jira",
+        "agile",
+        "scrum",
+        "kanban",
+        "ci/cd",
+        "testing",
+        "jest",
+        "mocha",
+        "selenium",
+        "cypress",
+        "webpack",
+        "babel",
+        "npm",
+        "yarn",
+        "redux",
+        "vuex",
+        "mobx",
+      ].includes(lowerKeyword);
+    });
 
-  // Identify missing skills from missing keywords
-  const missingSkills = analysis.missingKeywords.filter((keyword) =>
-    skillKeywords.includes(keyword.toLowerCase())
-  );
+  // Get skill categories if available
+  const skillCategories = analysis.skillCategories || {
+    technical: missingSkills,
+    soft: [],
+    domain: [],
+  };
 
   // Determine match level based on percentage
   const getMatchLevel = (score: number) => {
@@ -380,26 +394,72 @@ export default function Results({ analysis }: ResultsProps) {
                     <div className="space-y-6">
                       <div>
                         <h4 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
-                          Technical Skills Gap Analysis
+                          Skills Gap Analysis
                         </h4>
 
                         {missingSkills.length > 0 ? (
                           <>
                             <p className="text-neutral-700 mb-4">
-                              We've identified the following technical skills
-                              that appear in the job description but are not
-                              detected in your resume:
+                              We've identified the following skills that appear
+                              in the job description but are not detected in
+                              your resume:
                             </p>
-                            <div className="flex flex-wrap gap-2 mt-2">
-                              {missingSkills.map((skill, idx) => (
-                                <div
-                                  key={idx}
-                                  className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
-                                >
-                                  {skill}
+
+                            {skillCategories.technical.length > 0 && (
+                              <div className="mb-4">
+                                <h5 className="text-sm font-medium text-neutral-700 mb-2">
+                                  Technical Skills
+                                </h5>
+                                <div className="flex flex-wrap gap-2">
+                                  {skillCategories.technical.map(
+                                    (skill, idx) => (
+                                      <div
+                                        key={idx}
+                                        className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
+                                      >
+                                        {skill}
+                                      </div>
+                                    )
+                                  )}
                                 </div>
-                              ))}
-                            </div>
+                              </div>
+                            )}
+
+                            {skillCategories.domain.length > 0 && (
+                              <div className="mb-4">
+                                <h5 className="text-sm font-medium text-neutral-700 mb-2">
+                                  Domain Skills
+                                </h5>
+                                <div className="flex flex-wrap gap-2">
+                                  {skillCategories.domain.map((skill, idx) => (
+                                    <div
+                                      key={idx}
+                                      className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium"
+                                    >
+                                      {skill}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {skillCategories.soft.length > 0 && (
+                              <div className="mb-4">
+                                <h5 className="text-sm font-medium text-neutral-700 mb-2">
+                                  Soft Skills
+                                </h5>
+                                <div className="flex flex-wrap gap-2">
+                                  {skillCategories.soft.map((skill, idx) => (
+                                    <div
+                                      key={idx}
+                                      className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium"
+                                    >
+                                      {skill}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
                           </>
                         ) : (
                           <div className="bg-green-50 p-4 rounded-lg border border-green-200">
@@ -422,8 +482,8 @@ export default function Results({ analysis }: ResultsProps) {
                               <div className="ml-3">
                                 <p className="text-green-700">
                                   No significant skill gaps detected! Your
-                                  resume appears to cover all the technical
-                                  skills mentioned in the job description.
+                                  resume appears to cover all the key skills
+                                  mentioned in the job description.
                                 </p>
                               </div>
                             </div>
