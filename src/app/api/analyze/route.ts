@@ -6,6 +6,13 @@ interface AnalysisResult {
   totalKeywords: number;
   matchedKeywords: number;
   missingKeywords: string[];
+  matchedSkills: string[];
+  missingSkills: string[];
+  skillCategories: {
+    technical: string[];
+    soft: string[];
+    domain: string[];
+  };
 }
 
 // Helper function to perform text analysis based on keyword matching.
@@ -36,33 +43,221 @@ function analyzeResume(
   const uniqueJobDescWords = Array.from(new Set(jobDescWords));
 
   // Prepare resume text for matching
-  const resumeWordSet = new Set(
-    cleanedResume.split(/\s+/).filter((word) => word.length >= 4)
-  );
+  const resumeWords = cleanedResume
+    .split(/\s+/)
+    .filter((word) => word.length >= 4);
+  const resumeWordSet = new Set(resumeWords);
 
   // Find matched and missing keywords
-  const matchedKeywords: string[] = [];
-  const missingKeywords: string[] = [];
+  const matchedKeywordsList: string[] = [];
+  const missingKeywordsList: string[] = [];
 
   uniqueJobDescWords.forEach((keyword) => {
     if (resumeWordSet.has(keyword)) {
-      matchedKeywords.push(keyword);
+      matchedKeywordsList.push(keyword);
     } else {
-      missingKeywords.push(keyword);
+      missingKeywordsList.push(keyword);
     }
   });
 
   // Calculate match percentage
   const totalKeywords = uniqueJobDescWords.length;
-  const matchCount = matchedKeywords.length;
+  const matchCount = matchedKeywordsList.length;
   const matchPercentage =
     totalKeywords > 0 ? Math.round((matchCount / totalKeywords) * 100) : 0;
+
+  // Skill categorization
+  const technicalSkills = [
+    "javascript",
+    "typescript",
+    "react",
+    "angular",
+    "vue",
+    "node",
+    "express",
+    "python",
+    "java",
+    "c#",
+    "php",
+    "ruby",
+    "go",
+    "rust",
+    "swift",
+    "kotlin",
+    "objective-c",
+    "html",
+    "css",
+    "sass",
+    "less",
+    "bootstrap",
+    "tailwind",
+    "jquery",
+    "sql",
+    "mysql",
+    "postgresql",
+    "mongodb",
+    "firebase",
+    "graphql",
+    "rest",
+    "api",
+    "aws",
+    "azure",
+    "gcp",
+    "docker",
+    "kubernetes",
+    "jenkins",
+    "gitlab",
+    "github",
+    "bitbucket",
+    "jira",
+    "testing",
+    "jest",
+    "mocha",
+    "selenium",
+    "webpack",
+    "babel",
+    "npm",
+    "yarn",
+    "redux",
+    "vuex",
+    "mobx",
+    "frontend",
+    "backend",
+    "fullstack",
+    "devops",
+    "cicd",
+    "continuous",
+    "integration",
+    "deployment",
+  ];
+
+  const softSkills = [
+    "communication",
+    "teamwork",
+    "leadership",
+    "problem-solving",
+    "critical",
+    "thinking",
+    "adaptability",
+    "flexibility",
+    "creativity",
+    "innovation",
+    "collaboration",
+    "interpersonal",
+    "presentation",
+    "facilitation",
+    "negotiation",
+    "conflict",
+    "resolution",
+    "management",
+    "decision",
+    "making",
+    "organization",
+    "planning",
+    "prioritization",
+    "time",
+    "stress",
+    "emotional",
+    "intelligence",
+    "customer",
+    "service",
+    "attention",
+    "detail",
+    "analytical",
+  ];
+
+  const domainSkills = [
+    "agile",
+    "scrum",
+    "kanban",
+    "waterfall",
+    "sdlc",
+    "compliance",
+    "regulatory",
+    "cybersecurity",
+    "security",
+    "networking",
+    "cloud",
+    "data",
+    "machine",
+    "learning",
+    "artificial",
+    "intelligence",
+    "blockchain",
+    "iot",
+    "internet",
+    "things",
+    "fintech",
+    "healthcare",
+    "ecommerce",
+    "retail",
+    "marketing",
+    "analytics",
+    "business",
+    "intelligence",
+    "research",
+    "development",
+    "product",
+    "project",
+    "management",
+    "architecture",
+    "infrastructure",
+    "systems",
+    "engineering",
+    "quality",
+    "assurance",
+    "ux",
+    "ui",
+    "design",
+    "user",
+    "experience",
+    "interface",
+    "performance",
+    "seo",
+  ];
+
+  // Categorize missing and matched skills
+  const matchedSkills: string[] = [];
+  const missingSkills: string[] = [];
+  const skillCategories = {
+    technical: [] as string[],
+    soft: [] as string[],
+    domain: [] as string[],
+  };
+
+  // Process missing keywords to identify missing skills
+  missingKeywordsList.forEach((keyword) => {
+    if (technicalSkills.includes(keyword)) {
+      missingSkills.push(keyword);
+      skillCategories.technical.push(keyword);
+    } else if (softSkills.includes(keyword)) {
+      missingSkills.push(keyword);
+      skillCategories.soft.push(keyword);
+    } else if (domainSkills.includes(keyword)) {
+      missingSkills.push(keyword);
+      skillCategories.domain.push(keyword);
+    }
+  });
+
+  // Process matched keywords to identify matched skills
+  matchedKeywordsList.forEach((keyword) => {
+    if (
+      technicalSkills.includes(keyword) ||
+      softSkills.includes(keyword) ||
+      domainSkills.includes(keyword)
+    ) {
+      matchedSkills.push(keyword);
+    }
+  });
 
   return {
     matchPercentage,
     totalKeywords,
     matchedKeywords: matchCount,
-    missingKeywords,
+    missingKeywords: missingKeywordsList,
+    matchedSkills,
+    missingSkills,
+    skillCategories,
   };
 }
 
