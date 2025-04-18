@@ -1,5 +1,6 @@
 // src/components/Results.tsx
 import React, { useState } from "react";
+import SkillsChart from "./SkillsChart";
 
 interface AnalysisResults {
   matchPercentage: number;
@@ -396,6 +397,11 @@ export default function Results({ analysis }: ResultsProps) {
                         <h4 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
                           Skills Gap Analysis
                         </h4>
+
+                        <SkillsChart
+                          matchedSkills={analysis.matchedSkills || []}
+                          missingSkills={missingSkills}
+                        />
 
                         {missingSkills.length > 0 ? (
                           <>
