@@ -83,11 +83,14 @@ export default function SkillRating({
   };
 
   const color = getColor();
+  const bgColor = `bg-${color}-50`;
+  const borderColor = `border-${color}-200`;
+  const textColor = `text-${color}-700`;
   const priorityIcon = getPriorityIcon();
 
   return (
     <div
-      className={`flex items-center px-3 py-2 bg-${color}-50 border border-${color}-200 rounded-lg`}
+      className={`flex items-center px-3 py-2 rounded-lg bg-${color}-50 border border-${color}-200`}
     >
       <span className={`text-${color}-700 font-medium mr-2`}>
         {skill.charAt(0).toUpperCase() + skill.slice(1)}
