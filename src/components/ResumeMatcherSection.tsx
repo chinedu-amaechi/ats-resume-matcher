@@ -42,7 +42,7 @@ export default function ResumeMatcherSection() {
       setAnalysis(data);
       setShowResults(true);
 
-      // Scroll to results section
+      // Scroll to results section with smooth scrolling
       setTimeout(() => {
         const resultsElement = document.getElementById("results-section");
         if (resultsElement) {
@@ -58,21 +58,22 @@ export default function ResumeMatcherSection() {
   };
 
   return (
-    <section id="resume-matcher" className="py-20">
+    <section id="resume-matcher" className="py-24">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-slate-900">Resume Matcher</h2>
-          <p className="text-slate-600 mt-3 text-lg">
-            Paste your resume and job description to analyze the match
+          <p className="text-slate-600 mt-4 text-lg max-w-3xl mx-auto">
+            Optimize your resume for Applicant Tracking Systems by analyzing how
+            well it matches with job descriptions
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10 overflow-hidden">
-          <form onSubmit={analyzeResume} className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
+        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 overflow-hidden">
+          <form onSubmit={analyzeResume} className="space-y-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-4">
                 <div className="mb-2 flex justify-between items-center">
-                  <label className="font-medium text-slate-700">
+                  <label className="text-lg font-medium text-slate-700">
                     Resume Content
                   </label>
                 </div>
@@ -82,22 +83,11 @@ export default function ResumeMatcherSection() {
                 />
               </div>
 
-              <div>
+              <div className="space-y-4">
                 <div className="mb-2 flex justify-between items-center">
-                  <label className="font-medium text-slate-700">
+                  <label className="text-lg font-medium text-slate-700">
                     Job Description
                   </label>
-                  <button
-                    type="button"
-                    className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors"
-                    onClick={() =>
-                      setJobDesc(
-                        "Software Engineer with 3+ years of experience in React, Node.js, and TypeScript. The ideal candidate will have a strong foundation in front-end development, responsive design and be comfortable with modern JavaScript frameworks. Responsibilities include developing user interface components, implementing responsive designs, and optimizing application performance. Required skills: JavaScript, CSS, HTML5, Git, RESTful APIs. Preferred skills: Python, Docker, AWS, MongoDB, Agile, Scrum, CI/CD."
-                      )
-                    }
-                  >
-                    Load example
-                  </button>
                 </div>
                 <JobDescriptionInput
                   jobDesc={jobDesc}
@@ -106,10 +96,10 @@ export default function ResumeMatcherSection() {
               </div>
             </div>
 
-            <div className="text-center">
+            <div className="text-center pt-4">
               <button
                 type="submit"
-                className="w-full sm:w-auto px-10 py-4 bg-primary text-white text-lg font-medium rounded-lg shadow-md hover:bg-primary-dark hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full sm:w-auto px-12 py-4 bg-primary text-white text-lg font-medium rounded-lg shadow-md hover:bg-primary-dark hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                 disabled={loading}
               >
                 {loading ? (
@@ -127,7 +117,7 @@ export default function ResumeMatcherSection() {
       </div>
 
       {showResults && (
-        <div id="results-section" className="max-w-6xl mx-auto px-6 mt-10">
+        <div id="results-section" className="max-w-7xl mx-auto px-6 mt-12">
           <Results analysis={analysis} />
         </div>
       )}
