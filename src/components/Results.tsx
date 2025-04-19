@@ -100,11 +100,56 @@ export default function Results({ analysis }: ResultsProps) {
       ].includes(lowerKeyword);
     });
 
+  // Get matched skills
+  const matchedSkills = analysis.matchedSkills || [];
+
   // Get skill categories if available
   const skillCategories = analysis.skillCategories || {
-    technical: missingSkills,
-    soft: [],
-    domain: [],
+    technical: missingSkills.filter((skill) =>
+      [
+        "javascript",
+        "typescript",
+        "react",
+        "angular",
+        "vue",
+        "node",
+        "express",
+        "python",
+        "java",
+        "c#",
+        "php",
+        "ruby",
+        "html",
+        "css",
+        "sql",
+        "aws",
+        "docker",
+        "kubernetes",
+      ].includes(skill.toLowerCase())
+    ),
+    soft: missingSkills.filter((skill) =>
+      [
+        "communication",
+        "teamwork",
+        "leadership",
+        "problem-solving",
+        "adaptability",
+        "creativity",
+        "collaboration",
+      ].includes(skill.toLowerCase())
+    ),
+    domain: missingSkills.filter((skill) =>
+      [
+        "agile",
+        "scrum",
+        "kanban",
+        "fintech",
+        "healthcare",
+        "ecommerce",
+        "marketing",
+        "analytics",
+      ].includes(skill.toLowerCase())
+    ),
   };
 
   // Determine match level based on percentage
@@ -401,13 +446,13 @@ export default function Results({ analysis }: ResultsProps) {
                         </h4>
 
                         <SkillsChart
-                          matchedSkills={analysis.matchedSkills || []}
+                          matchedSkills={matchedSkills}
                           missingSkills={missingSkills}
                         />
 
                         {missingSkills.length > 0 ? (
                           <>
-                            <p className="text-neutral-700 mb-4">
+                            <p className="text-neutral-700 mb-4 mt-6">
                               We've identified the following skills that appear
                               in the job description but are not detected in
                               your resume:
@@ -450,7 +495,7 @@ export default function Results({ analysis }: ResultsProps) {
                             )}
                           </>
                         ) : (
-                          <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                          <div className="bg-green-50 p-4 rounded-lg border border-green-200 mt-4">
                             <div className="flex">
                               <div className="flex-shrink-0">
                                 <svg
@@ -484,48 +529,9 @@ export default function Results({ analysis }: ResultsProps) {
                           <h4 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
                             Skill Development Recommendations
                           </h4>
-                          <p className="text-neutral-700 mb-2">
-                            Consider developing these skills to improve your
-                            match for similar positions:
-                          </p>
-                          <ul className="list-disc pl-5 text-neutral-700 space-y-3">
-                            {missingSkills.slice(0, 3).map((skill, idx) => (
-                              <li key={idx}>
-                                <span className="font-medium">
-                                  {skill.charAt(0).toUpperCase() +
-                                    skill.slice(1)}
-                                </span>
-                                :
-                                {skill.toLowerCase() === "react" &&
-                                  " Learn React fundamentals through the official documentation and build small projects to demonstrate your skills."}
-                                {skill.toLowerCase() === "node" &&
-                                  " Practice building backend applications with Node.js and understand how to create RESTful APIs."}
-                                {skill.toLowerCase() === "typescript" &&
-                                  " Add TypeScript to your JavaScript projects to show your understanding of type systems and interfaces."}
-                                {skill.toLowerCase() === "python" &&
-                                  " Develop Python applications focusing on data processing or automation to showcase your capabilities."}
-                                {skill.toLowerCase() === "docker" &&
-                                  " Learn containerization concepts and demonstrate your ability to deploy applications using Docker."}
-                                {skill.toLowerCase() === "aws" &&
-                                  " Familiarize yourself with key AWS services like S3, EC2, and Lambda through the free tier offerings."}
-                                {skill.toLowerCase() === "mongodb" &&
-                                  " Build projects that use MongoDB as a database to store and retrieve data efficiently."}
-                                {skill.toLowerCase() === "agile" &&
-                                  " Participate in or lead projects using Agile methodologies to demonstrate your process knowledge."}
-                                {![
-                                  "react",
-                                  "node",
-                                  "typescript",
-                                  "python",
-                                  "docker",
-                                  "aws",
-                                  "mongodb",
-                                  "agile",
-                                ].includes(skill.toLowerCase()) &&
-                                  " Consider courses, tutorials or small projects to develop this skill and add it to your resume."}
-                              </li>
-                            ))}
-                          </ul>
+                          <SkillDevelopment
+                            skills={missingSkills.slice(0, 3)}
+                          />
                         </div>
                       )}
 

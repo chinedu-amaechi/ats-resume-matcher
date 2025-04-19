@@ -90,58 +90,71 @@ export default function SkillDevelopment({ skills }: SkillDevelopmentProps) {
         { name: "Run a Sprint with a Team", type: "Project" },
       ],
     },
+    javascript: {
+      description:
+        "A high-level, dynamic programming language for web development",
+      resources: [
+        { name: "MDN JavaScript Guide", type: "Documentation" },
+        { name: "JavaScript: Understanding the Weird Parts", type: "Course" },
+        { name: "Build an Interactive Web App", type: "Project" },
+      ],
+    },
+    kubernetes: {
+      description: "An open-source container orchestration platform",
+      resources: [
+        { name: "Kubernetes Documentation", type: "Documentation" },
+        { name: "Kubernetes for Developers", type: "Course" },
+        { name: "Deploy a Microservice Application", type: "Project" },
+      ],
+    },
   };
 
-  // Get the top 3 skills to prioritize
-  const prioritySkills = skills.slice(0, 3);
-
   return (
-    <div className="space-y-6">
-      <h4 className="text-sm font-medium text-neutral-500 uppercase tracking-wider mb-2">
-        Skill Development Recommendations
-      </h4>
+    <div className="space-y-4">
+      {skills.length > 0 ? (
+        <div>
+          {skills.map((skill, index) => {
+            const lowerSkill = skill.toLowerCase();
+            const skillInfo = skillResources[lowerSkill];
 
-      {prioritySkills.length > 0 ? (
-        <div className="space-y-6">
-          {prioritySkills.map((skill, index) => (
-            <div
-              key={index}
-              className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
-            >
-              <div className="flex items-start">
-                <div className="bg-blue-100 p-2 rounded-full">
-                  <svg
-                    className="w-5 h-5 text-blue-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                    />
-                  </svg>
-                </div>
-                <div className="ml-4 flex-1">
-                  <h5 className="font-medium text-gray-900">
-                    {skill.charAt(0).toUpperCase() + skill.slice(1)}
-                  </h5>
-                  <p className="text-sm text-gray-600 mt-1">
-                    {skillResources[skill]
-                      ? skillResources[skill].description
-                      : `A valuable skill for this position`}
-                  </p>
+            return (
+              <div
+                key={index}
+                className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm mb-4"
+              >
+                <div className="flex items-start">
+                  <div className="bg-blue-100 p-2 rounded-full">
+                    <svg
+                      className="w-5 h-5 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="ml-4 flex-1">
+                    <h5 className="font-medium text-gray-900">
+                      {skill.charAt(0).toUpperCase() + skill.slice(1)}
+                    </h5>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {skillInfo
+                        ? skillInfo.description
+                        : `A valuable skill for this position`}
+                    </p>
 
-                  {skillResources[skill] && (
-                    <div className="mt-3">
-                      <p className="text-xs font-medium text-gray-500 uppercase mb-1">
-                        Learning Resources
-                      </p>
-                      <div className="space-y-2">
-                        {skillResources[skill].resources.map(
-                          (resource, idx) => (
+                    {skillInfo && (
+                      <div className="mt-3">
+                        <p className="text-xs font-medium text-gray-500 uppercase mb-1">
+                          Learning Resources
+                        </p>
+                        <div className="space-y-2">
+                          {skillInfo.resources.map((resource, idx) => (
                             <div key={idx} className="flex items-center">
                               <div
                                 className={`w-2 h-2 rounded-full ${
@@ -159,15 +172,28 @@ export default function SkillDevelopment({ skills }: SkillDevelopmentProps) {
                                 ({resource.type})
                               </span>
                             </div>
-                          )
-                        )}
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+
+                    {!skillInfo && (
+                      <div className="mt-3">
+                        <p className="text-xs font-medium text-gray-500 uppercase mb-1">
+                          Recommendation
+                        </p>
+                        <p className="text-sm text-gray-700">
+                          Consider researching this skill and finding relevant
+                          courses or tutorials to develop your expertise in this
+                          area.
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
             <p className="text-indigo-700 text-sm">

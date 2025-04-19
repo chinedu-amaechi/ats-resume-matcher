@@ -16,6 +16,55 @@ export default function ResumeTextInput({
     setResumeText("");
   };
 
+  // Example resume text to demonstrate usage
+  const exampleResume = `JOHN DOE
+Software Engineer
+john.doe@example.com | (123) 456-7890 | linkedin.com/in/johndoe | github.com/johndoe
+
+SUMMARY
+Results-driven Software Engineer with 4+ years of experience developing web applications using JavaScript, React, and Node.js. Passionate about creating clean, maintainable code and implementing responsive designs.
+
+SKILLS
+Programming Languages: JavaScript, TypeScript, HTML, CSS
+Frameworks/Libraries: React, Redux, Express.js, Jest
+Tools: Git, Webpack, Docker
+Databases: MongoDB, PostgreSQL
+Cloud: AWS (S3, EC2, Lambda)
+Methodologies: Agile, Scrum
+
+WORK EXPERIENCE
+Senior Frontend Developer | TechCorp Inc. | Jan 2021 - Present
+• Developed and maintained responsive web applications using React and TypeScript
+• Implemented state management with Redux and optimized application performance
+• Collaborated with UX designers to implement responsive designs
+• Reduced load time by 40% through code optimization and lazy loading
+
+Software Engineer | WebSolutions | Mar 2019 - Dec 2020
+• Built RESTful APIs using Node.js and Express
+• Designed and implemented MongoDB database schemas
+• Contributed to frontend development using React
+• Participated in code reviews and mentored junior developers
+
+EDUCATION
+Bachelor of Science in Computer Science | University of Technology | 2015-2019
+• GPA: 3.8/4.0
+• Relevant coursework: Data Structures, Algorithms, Web Development, Database Systems
+
+PROJECTS
+E-commerce Platform (github.com/johndoe/ecommerce)
+• Developed a full-stack e-commerce application using the MERN stack
+• Implemented authentication, product catalog, and payment processing
+• Deployed on AWS using Docker containers
+
+Task Management App (github.com/johndoe/taskmanager)
+• Created a task management application with React and Firebase
+• Implemented real-time updates and collaborative features
+• Designed a responsive UI that works across devices`;
+
+  const loadExample = () => {
+    setResumeText(exampleResume);
+  };
+
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
@@ -40,6 +89,14 @@ export default function ResumeTextInput({
           </svg>
           {showTips ? "Hide tips" : "Show tips"}
         </button>
+
+        <button
+          type="button"
+          className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors"
+          onClick={loadExample}
+        >
+          Load example resume
+        </button>
       </div>
 
       {showTips && (
@@ -52,13 +109,14 @@ export default function ResumeTextInput({
             <li>List specific technologies, tools, and methodologies</li>
             <li>Add quantifiable achievements when possible</li>
             <li>Include relevant certifications and education</li>
+            <li>Organize content with clear section headings</li>
           </ul>
         </div>
       )}
 
       <div className="relative">
         <textarea
-          className="w-full h-64 p-4 border border-gray-300 rounded-xl focus:border-primary focus:ring focus:ring-primary/20 outline-none resize-none"
+          className="w-full h-64 p-4 border border-gray-300 rounded-xl focus:border-primary focus:ring focus:ring-primary/20 outline-none resize-none font-mono text-sm"
           placeholder="Paste your resume content here..."
           value={resumeText}
           onChange={(e) => setResumeText(e.target.value)}

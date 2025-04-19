@@ -30,7 +30,7 @@ export default function SkillsChart({
 
       <div className="w-full bg-gray-200 rounded-full h-4 mb-1">
         <div
-          className="bg-primary h-4 rounded-full"
+          className="bg-primary h-4 rounded-full transition-all duration-500"
           style={{ width: `${matchedPercent}%` }}
         ></div>
       </div>
