@@ -159,15 +159,21 @@ export default function Tips() {
           </p>
         </div>
 
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tips.map((tip, index) => (
             <div
               key={index}
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+              style={{
+                minHeight: "200px",
+                display: "flex",
+                flexDirection: "column",
+              }}
             >
               <div
-                className="p-6 cursor-pointer"
+                className="p-6 cursor-pointer flex-grow"
                 onClick={() => toggleTip(index)}
+                style={{ position: "relative" }}
               >
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
@@ -220,11 +226,15 @@ export default function Tips() {
         </div>
 
         <div className="mt-12 bg-white rounded-xl shadow-md p-6 md:p-8">
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <div className="w-full md:w-1/3 flex justify-center">
-              <div className="w-32 h-32 bg-primary/10 rounded-full flex items-center justify-center">
+          <h3 className="text-2xl font-semibold mb-6 text-center">
+            Final Checklist
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex justify-center items-center">
+              <div className="w-48 h-48 bg-primary/10 rounded-full flex items-center justify-center">
                 <svg
-                  className="w-16 h-16 text-primary"
+                  className="w-24 h-24 text-primary"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -238,14 +248,12 @@ export default function Tips() {
                 </svg>
               </div>
             </div>
-            <div className="w-full md:w-2/3">
-              <h3 className="text-2xl font-semibold mb-3 text-center md:text-left">
-                Final Checklist
-              </h3>
-              <ul className="space-y-3">
+
+            <div className="flex flex-col justify-center">
+              <ul className="space-y-4">
                 <li className="flex items-start">
                   <svg
-                    className="w-5 h-5 text-green-500 mt-0.5 mr-2"
+                    className="w-6 h-6 text-green-500 mt-0.5 mr-3 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -257,14 +265,14 @@ export default function Tips() {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  <span>
+                  <span className="text-lg">
                     Proofread your resume carefully for spelling and grammar
                     errors
                   </span>
                 </li>
                 <li className="flex items-start">
                   <svg
-                    className="w-5 h-5 text-green-500 mt-0.5 mr-2"
+                    className="w-6 h-6 text-green-500 mt-0.5 mr-3 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -276,14 +284,14 @@ export default function Tips() {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  <span>
+                  <span className="text-lg">
                     Ensure your contact information is up-to-date and
                     professional
                   </span>
                 </li>
                 <li className="flex items-start">
                   <svg
-                    className="w-5 h-5 text-green-500 mt-0.5 mr-2"
+                    className="w-6 h-6 text-green-500 mt-0.5 mr-3 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -295,14 +303,14 @@ export default function Tips() {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  <span>
+                  <span className="text-lg">
                     Use our Resume Matcher to optimize for specific job
                     descriptions
                   </span>
                 </li>
                 <li className="flex items-start">
                   <svg
-                    className="w-5 h-5 text-green-500 mt-0.5 mr-2"
+                    className="w-6 h-6 text-green-500 mt-0.5 mr-3 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -314,7 +322,7 @@ export default function Tips() {
                       d="M5 13l4 4L19 7"
                     />
                   </svg>
-                  <span>
+                  <span className="text-lg">
                     Save your resume in both .docx and .pdf formats for
                     different application systems
                   </span>
