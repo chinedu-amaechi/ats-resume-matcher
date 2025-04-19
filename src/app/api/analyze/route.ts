@@ -129,6 +129,11 @@ function analyzeResume(
     "continuous",
     "integration",
     "deployment",
+    "algorithms",
+    "data structures",
+    "databases",
+    "ml",
+    "ai",
   ];
 
   const softSkills = [
@@ -164,6 +169,8 @@ function analyzeResume(
     "attention",
     "detail",
     "analytical",
+    "mentoring",
+    "coaching",
   ];
 
   const domainSkills = [
@@ -214,6 +221,9 @@ function analyzeResume(
     "interface",
     "performance",
     "seo",
+    "saas",
+    "paas",
+    "iaas",
   ];
 
   // Categorize missing and matched skills
