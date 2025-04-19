@@ -17,16 +17,16 @@ export default function HomePage() {
       <main className="pt-16">
         <HeroSection />
 
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="bg-white rounded-xl shadow-md p-6 mb-12">
-            <h2 className="text-2xl font-semibold mb-4">
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          <div className="bg-white rounded-xl shadow-md p-8 mb-12">
+            <h2 className="text-2xl font-semibold mb-6">
               Why Resume Matching Matters
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="space-y-3">
-                <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="space-y-4">
+                <div className="bg-blue-100 w-14 h-14 rounded-full flex items-center justify-center">
                   <svg
-                    className="w-6 h-6 text-blue-600"
+                    className="w-7 h-7 text-blue-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -47,10 +47,10 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="space-y-3">
-                <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center">
+              <div className="space-y-4">
+                <div className="bg-green-100 w-14 h-14 rounded-full flex items-center justify-center">
                   <svg
-                    className="w-6 h-6 text-green-600"
+                    className="w-7 h-7 text-green-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -70,10 +70,10 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="space-y-3">
-                <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center">
+              <div className="space-y-4">
+                <div className="bg-purple-100 w-14 h-14 rounded-full flex items-center justify-center">
                   <svg
-                    className="w-6 h-6 text-purple-600"
+                    className="w-7 h-7 text-purple-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
